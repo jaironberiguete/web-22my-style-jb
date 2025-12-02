@@ -1,3 +1,4 @@
+import { Instagram, Facebook } from 'lucide-react';
 export const Footer = () => {
   return (
     <footer className="flex justify-between items-center mt-16 py-6 border-t border-gray-700">
@@ -10,8 +11,12 @@ export const Footer = () => {
       </div>
 
       <div className="text-xl flex gap-4">
-        <span className="cursor-pointer">📘</span>
-        <span className="cursor-pointer">🐦</span>
+        <span className="cursor-pointer">
+            <a href=""> <Instagram /> </a>
+        </span>
+        <span className="cursor-pointer">
+            <a href=""> <Facebook /> </a>
+        </span>
       </div>
     </footer>
   );
