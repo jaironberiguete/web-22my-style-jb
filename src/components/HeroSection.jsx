@@ -1,8 +1,8 @@
 export const Hero = () => {
-  
-    return (
-    <section className="w-full bg-gradient-to-r from-[#111827] to-[#0b0d12] p-10 rounded-xl flex flex-col md:flex-row items-center justify-between">
-      <div>
+  return (
+    <section className="relative border border-gray-700 py-8 w-full bg-gradient-to-r from-[#111827] to-[#0b0d12] p-10  flex flex-col md:flex-row items-center justify-between overflow-hidden">
+      
+      <div className="mt-14 md: mb-20 max-w-lg z-10 ml-20">
         <h1 className="text-4xl font-bold">NEW COLLECTION</h1>
         <p className="text-gray-400 mt-3">
           Discover the latest trends in fashion
@@ -16,8 +16,8 @@ export const Hero = () => {
       <img
         src="images/hero-model.png"
         alt="model"
-        className="w-64 mt-8 md:mt-0 md:w-60 "
+        className="absolute bottom-0 top-20 right-20 w-64 md:w-60"
       />
     </section>
   );
-}
+};

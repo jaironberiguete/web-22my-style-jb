@@ -7,10 +7,10 @@ const products = [
 
 export const FeaturedProducts = () => {
   return (
-    <section className="mt-12">
-      <h2 className="text-xl font-semibold mb-4">FEATURED PRODUCTS</h2>
+    <section className=" border-r border-l border-gray-700">
+      <h2 className="text-xl font-semibold mb-6 ml-4 ">FEATURED PRODUCTS</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 imtems-center justify-center px-10" >
         {products.map((p) => (
           <div
             key={p.name}
