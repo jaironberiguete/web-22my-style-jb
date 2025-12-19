@@ -1,21 +1,34 @@
 // src/components/Login.jsx
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import API from "../api/axios"; 
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
-    // For now, just log the values
-    console.log({ email, password });
+
+    try {
+      const response = await API.post("auth/login/", { email, password });
+      // Store tokens in localStorage
+      localStorage.setItem("access_token", response.data.access);
+      localStorage.setItem("refresh_token", response.data.refresh);
+      alert("Login successful!");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      alert("Invalid credentials");
+    }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-900">
+    <div className="flex items-center justify-center h-screen bg-[#0b0d12] ">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
+        className="bg-gradient-to-t from-[#111827] to-[#0b0d12] p-8 rounded-lg shadow-lg w-full max-w-sm border-gray-700"
       >
         <h2 className="text-2xl font-semibold text-white mb-6 text-center">Login</h2>
 
@@ -39,9 +52,9 @@ export const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+          className="w-full text-white border rounded-lg hover:bg-white hover:text-black transition font-semibold py-2 px-4 rounded"
         >
-          Login
+          LOGIN
         </button>
       </form>
     </div>
