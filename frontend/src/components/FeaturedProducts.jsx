@@ -36,7 +36,7 @@ export const FeaturedProducts = () => {
             {/* FIXED IMAGE SIZE + CENTERED */}
             <div className="flex items-center justify-center h-40 w-full">
               <img
-                src={p.img}
+                src={p.image || "images/products/default.png"} // fallback image
                 alt={p.name}
                 className="h-36 object-contain"
               />
