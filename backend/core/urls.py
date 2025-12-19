@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/auth/', include('apps.users.urls')),  # JWT auth
     path('api/', include('apps.products.urls')),   # Products API
     path('api/cart/', include('apps.cart.urls')),     # Cart API
+    path('api/orders/', include('apps.orders.urls')),   # Orders API
 ]
