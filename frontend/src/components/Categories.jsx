@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const categories = [
   { label: "MEN", img: "images/models/cat-men.png" },
   { label: "WOMEN", img: "images/models/cat-women.png" },
@@ -5,6 +8,20 @@ const categories = [
 ];
 
 export const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/api/products/categories/");
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Failed to fetch categories:", err);
+    }
+  };
+  fetchCategories();
+  }, []);
+
   return (
     <section className="relative border-r border-l border-gray-700 py-8 w-full pb-40 pt-20">
       <h2 className="text-xl font-semibold mb-6 ml-4">SHOP BY CATEGORY</h2>
@@ -12,7 +29,7 @@ export const Categories = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 px-10">
         {categories.map((c) => (
           <div
-            key={c.label}
+            key={c.id}
             className="relative rounded-xl overflow-hidden cursor-pointer group h-64"
           >
 
@@ -22,7 +39,7 @@ export const Categories = () => {
             {/* Image fills the card */}
             <img
               src={c.img}
-              alt={c.label}
+              alt={c.name}
               className="absolute inset-0  h-60 object-cover opacity-90 group-hover:opacity-100 transition"
             />
 
@@ -31,7 +48,7 @@ export const Categories = () => {
 
             {/* Text overlay */}
             <p className="absolute bottom-4 left-4 text-white text-xl font-semibold tracking-wide drop-shadow">
-              {c.label}
+              {c.name}
             </p>
           </div>
         ))}
