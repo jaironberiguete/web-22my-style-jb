@@ -45,7 +45,12 @@ export const FeaturedProducts = () => {
             {/* PRODUCT INFO STAYS AT BOTTOM */}
             <div className="mt-auto text-center">
               <h3 className="font-semibold">{p.name}</h3>
-              <p className="text-gray-400">{p.price}</p>
+              <p className="text-gray-400">${p.price}</p>
+              <div>
+                <button className="border rounded-lg hover:bg-white hover:text-black transition px-4 py-2  mt-2">
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         ))}
