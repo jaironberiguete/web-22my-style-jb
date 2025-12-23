@@ -49,6 +49,7 @@ export const Navbar = () => {
       {/* Mini Cart Component */}
       <MiniCart cartItems={cart?.items || []}
                 subtotal={cart?.subtotal || 0} 
+                setCart={setCart}
       />
     </nav>
   );

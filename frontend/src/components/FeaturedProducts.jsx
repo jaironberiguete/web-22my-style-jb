@@ -16,15 +16,18 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
     };
     fetchProducts();
   }, []);
-
+  
+  // Add items to the users cart
   const handleAddToCart = async (productId) => {
+  const token = localStorage.getItem("accessToken"); // JWT from login
+
     try {
       const res = await axios.post(
         "http://127.0.0.1:8000/api/cart/add/",
-        { product_id: productId, quantity: 1 },
+        { product: productId, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      if (onCartUpdate) onCartUpdate(res.data.items); // update Navbar cart
+      if (onCartUpdate) onCartUpdate(res.data); // update Navbar cart
     } catch (err) {
       console.error("Failed to add product to cart:", err.response?.data || err.message);
     }
@@ -34,7 +37,7 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
     <section className="border-r border-l border-gray-700">
       <h2 className="text-xl font-semibold mb-6 ml-4">FEATURED PRODUCTS</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 px-10">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 px-10">
         {products.map((p) => (
           <div
             key={p.id} // use unique id
@@ -48,13 +51,13 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
               />
             </div>
 
-            <div className="mt-auto text-center">
-              <h3 className="font-semibold">{p.name}</h3>
-              <p className="text-gray-400">${p.price}</p>
+            <div className="mt-auto text-center px-2 sm:px-4">
+              <h3 className="font-semibold text-base sm:text-lg">{p.name}</h3>
+              <p className="text-gray-400 text-sm sm:text-base">${p.price}</p>
               <div>
                 <button
                   onClick={() => handleAddToCart(p.id)}
-                  className="border rounded-lg hover:bg-white hover:text-black transition px-4 py-2 mt-2"
+                  className="border rounded-lg hover:bg-white hover:text-black transition px-3 py-1.5 sm:px-4 sm:py-2 mt-2 text-sm sm:text-base"
                 >
                   Add to Cart
                 </button>

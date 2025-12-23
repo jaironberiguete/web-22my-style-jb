@@ -1,9 +1,8 @@
-// src/utils/MiniCart.jsx
 import { useState, useEffect, useRef } from "react";
-import { addToCart } from "../utils/api";
-import { ShoppingCart } from "lucide-react"; // use your icon library
+import { ShoppingCart } from "lucide-react";
+import axios from "axios";
 
-export const MiniCart = ({  cartItems = [], subtotal = 0 }) => { // default to empty array
+export const MiniCart = ({ cartItems = [], setCartItems, subtotal = 0 }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -14,10 +13,27 @@ export const MiniCart = ({  cartItems = [], subtotal = 0 }) => { // default to e
         setOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleRemove = async (productId) => {
+    const token = localStorage.getItem("accessToken");
+    try {
+      await axios.delete(
+        "http://127.0.0.1:8000/api/cart/remove/",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          data: { product: productId },
+        }
+      );
+      // Update cart locally
+      const updatedItems = cartItems.filter(item => item.product !== productId);
+      setCartItems(updatedItems);
+    } catch (err) {
+      console.error("Failed to remove item:", err.response?.data || err.message);
+    }
+  };
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -37,18 +53,24 @@ export const MiniCart = ({  cartItems = [], subtotal = 0 }) => { // default to e
           ) : (
             <div className="space-y-3">
               {cartItems.map((item) => (
-                <div key={item.id} className="flex items-center gap-3">
-                  <img
-                    src={item.product_image}
-                    alt={item.product_name}
-                    className="w-10 h-10 rounded object-cover"
-                  />
-                  <div>
-                    <p className="text-sm font-medium">{item.product_name}</p>
-                    <p className="text-xs text-gray-400">
-                      Qty: {item.quantity}
-                    </p>
+                <div key={item.id} className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={item.product_image || "https://via.placeholder.com/50"}
+                      alt={item.product_name}
+                      className="w-10 h-10 rounded object-cover"
+                    />
+                    <div className="flex flex-col">
+                      <p className="text-sm font-medium">{item.product_name}</p>
+                      <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
+                    </div>
                   </div>
+                  <button
+                    onClick={() => handleRemove(item.product)}
+                    className="hover:text-red-700 font-bold text-lg"
+                  >
+                    ×
+                  </button>
                 </div>
               ))}
             </div>
@@ -62,15 +84,14 @@ export const MiniCart = ({  cartItems = [], subtotal = 0 }) => { // default to e
           )}
 
           <div className="mt-4 flex gap-2 border-t pt-5 border-gray-700">
-            <button className="flex-1 py-2 rounded text-sm border rounded-lg hover:bg-white hover:text-black transition p-2 font-bold">
-                View Cart
+            <button className="flex-1 py-2 rounded text-sm border rounded-lg hover:bg-white hover:text-black transition font-bold">
+              View Cart
             </button>
-            <button className="flex-1 bg-whitepy-2 rounded text-sm border rounded-lg hover:bg-white hover:text-black transition p-2 font-bold">
-                Checkout
+            <button className="flex-1 py-2 rounded text-sm border rounded-lg hover:bg-white hover:text-black transition font-bold">
+              Checkout
             </button>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  );};

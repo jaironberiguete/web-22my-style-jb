@@ -26,7 +26,7 @@ export const Categories = () => {
     <section className="relative border-r border-l border-gray-700 py-8 w-full pb-40 pt-20">
       <h2 className="text-xl font-semibold mb-6 ml-4">SHOP BY CATEGORY</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 px-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 px-10">
         {categories.map((c) => (
           <div
             key={c.id}
