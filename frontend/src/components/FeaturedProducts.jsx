@@ -5,15 +5,25 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
   const [products, setProducts] = useState([]);
   const token = localStorage.getItem("accessToken"); // JWT from login
 
+    // Demo fallback products
+  const demoProducts = [
+    { id: 1, name: "CASUAL SHIRT", price: 75, image: "images/products/prod-shirt.png" },
+    { id: 2, name: "DENIM JEANS", price: 145, image: "images/products/prod-jeans.png" },
+    { id: 3, name: "LEATHER JACKET", price: 249, image: "images/products/prod-jacket.png" },
+    { id: 4, name: "SNEAKERS", price: 133, image: "images/products/prod-sneakers.png" },
+  ];
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get("http://127.0.0.1:8000/api/products/");
         setProducts(res.data);
       } catch (err) {
-        console.error("Failed to fetch products:", err);
+        console.warn("Backend not available, using demo products.");
+        setProducts(demoProducts); // fallback if API fails
       }
     };
+
     fetchProducts();
   }, []);
   

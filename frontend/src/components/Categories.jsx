@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const categories = [
-  { label: "MEN", img: "images/models/cat-men.png" },
-  { label: "WOMEN", img: "images/models/cat-women.png" },
-  { label: "KIDS", img: "images/models/cat-kids.png" },
+ // Demo categories fallback
+  const demoCategories = [
+  { id: 1, name: "MEN", img: "images/models/cat-men.png" },
+  { id: 2, name: "WOMEN", img: "images/models/cat-women.png" },
+  { id: 3, name: "KIDS", img: "images/models/cat-kids.png" },
 ];
 
 export const Categories = () => {
@@ -17,6 +18,7 @@ export const Categories = () => {
       setCategories(res.data);
     } catch (err) {
       console.error("Failed to fetch categories:", err);
+      setCategories(demoCategories); // fallback if API fails
     }
   };
   fetchCategories();
