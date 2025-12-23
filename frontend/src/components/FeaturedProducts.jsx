@@ -1,34 +1,77 @@
-const products = [
-  { name: "CASUAL SHIRT", price: "$75.00", img: "images/products/prod-shirt.png" },
-  { name: "DENIM JEANS", price: "$145.00", img: "images/products/prod-jeans.png" },
-  { name: "LEATHER JACKET", price: "$249.00", img: "images/products/prod-jacket.png" },
-  { name: "SNEAKERS", price: "$133.00", img: "images/products/prod-sneakers.png" },
-];
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export const FeaturedProducts = () => {
+export const FeaturedProducts = ({ onCartUpdate }) => {
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem("accessToken"); // JWT from login
+
+    // Demo fallback products
+  const demoProducts = [
+    { id: 1, name: "CASUAL SHIRT", price: 75, image: "images/products/prod-shirt.png" },
+    { id: 2, name: "DENIM JEANS", price: 145, image: "images/products/prod-jeans.png" },
+    { id: 3, name: "LEATHER JACKET", price: 249, image: "images/products/prod-jacket.png" },
+    { id: 4, name: "SNEAKERS", price: 133, image: "images/products/prod-sneakers.png" },
+  ];
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://127.0.0.1:8000/api/products/");
+        setProducts(res.data);
+      } catch (err) {
+        console.warn("Backend not available, using demo products.");
+        setProducts(demoProducts); // fallback if API fails
+      }
+    };
+
+    fetchProducts();
+  }, []);
+  
+  // Add items to the users cart
+  const handleAddToCart = async (productId) => {
+  const token = localStorage.getItem("accessToken"); // JWT from login
+
+    try {
+      const res = await axios.post(
+        "http://127.0.0.1:8000/api/cart/add/",
+        { product: productId, quantity: 1 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (onCartUpdate) onCartUpdate(res.data); // update Navbar cart
+    } catch (err) {
+      console.error("Failed to add product to cart:", err.response?.data || err.message);
+    }
+  };
+
   return (
     <section className="border-r border-l border-gray-700">
       <h2 className="text-xl font-semibold mb-6 ml-4">FEATURED PRODUCTS</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 px-10">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 px-10">
         {products.map((p) => (
           <div
-            key={p.name}
+            key={p.id} // use unique id
             className="bg-gradient-to-b from-[#111827] to-[#0b0d12] rounded-xl p-6 flex flex-col items-center justify-between hover:bg-[#1a1f2e] transition h-80"
           >
-            {/* FIXED IMAGE SIZE + CENTERED */}
             <div className="flex items-center justify-center h-40 w-full">
               <img
-                src={p.img}
+                src={p.image || "images/products/default.png"} 
                 alt={p.name}
                 className="h-36 object-contain"
               />
             </div>
 
-            {/* PRODUCT INFO STAYS AT BOTTOM */}
-            <div className="mt-auto text-center">
-              <h3 className="font-semibold">{p.name}</h3>
-              <p className="text-gray-400">{p.price}</p>
+            <div className="mt-auto text-center px-2 sm:px-4">
+              <h3 className="font-semibold text-base sm:text-lg">{p.name}</h3>
+              <p className="text-gray-400 text-sm sm:text-base">${p.price}</p>
+              <div>
+                <button
+                  onClick={() => handleAddToCart(p.id)}
+                  className="border rounded-lg hover:bg-white hover:text-black transition px-3 py-1.5 sm:px-4 sm:py-2 mt-2 text-sm sm:text-base"
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         ))}
