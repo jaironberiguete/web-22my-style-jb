@@ -14,8 +14,8 @@ export const Login = () => {
     try {
       const response = await API.post("auth/login/", { email, password });
       // Store tokens in localStorage
-      localStorage.setItem("access_token", response.data.access);
-      localStorage.setItem("refresh_token", response.data.refresh);
+      localStorage.setItem("refreshToken", response.data.refresh);
+      localStorage.setItem("accessToken", response.data.access);
       alert("Login successful!");
       navigate("/");
     } catch (error) {

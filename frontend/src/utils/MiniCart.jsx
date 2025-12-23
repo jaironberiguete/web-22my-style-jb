@@ -1,5 +1,6 @@
 // src/utils/MiniCart.jsx
 import { useState, useEffect, useRef } from "react";
+import { addToCart } from "../utils/api";
 import { ShoppingCart } from "lucide-react"; // use your icon library
 
 export const MiniCart = ({ cartItems = [] }) => { // default to empty array
@@ -38,12 +39,12 @@ export const MiniCart = ({ cartItems = [] }) => { // default to empty array
               {cartItems.map((item) => (
                 <div key={item.id} className="flex items-center gap-3">
                   <img
-                    src={item.image || "https://via.placeholder.com/50"}
-                    alt={item.name}
+                    src={item.product_image}
+                    alt={item.product_name}
                     className="w-10 h-10 rounded object-cover"
                   />
                   <div>
-                    <p className="text-sm font-medium">{item.name}</p>
+                    <p className="text-sm font-medium">{item.product_name}</p>
                     <p className="text-xs text-gray-400">
                       Qty: {item.quantity}
                     </p>
