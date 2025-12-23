@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const Navbar = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cart, setCart] = useState([]);
   const [user, setUser] = useState(null); // New state for user info
   const token = localStorage.getItem("accessToken"); // JWT from login
 
@@ -14,7 +14,7 @@ export const Navbar = () => {
       axios.get("http://127.0.0.1:8000/api/cart/", {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((res) => setCartItems(res.data.items))
+        .then((res) => setCart(res.data))
         .catch((err) => console.error(err.response?.data || err.message));
 
       // Fetch current user info
@@ -47,7 +47,9 @@ export const Navbar = () => {
         </div>
 
       {/* Mini Cart Component */}
-      <MiniCart cartItems={cartItems} />
+      <MiniCart cartItems={cart?.items || []}
+                subtotal={cart?.subtotal || 0} 
+      />
     </nav>
   );
 };

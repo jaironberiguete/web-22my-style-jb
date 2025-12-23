@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { addToCart } from "../utils/api";
 import { ShoppingCart } from "lucide-react"; // use your icon library
 
-export const MiniCart = ({ cartItems = [] }) => { // default to empty array
+export const MiniCart = ({  cartItems = [], subtotal = 0 }) => { // default to empty array
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -51,6 +51,13 @@ export const MiniCart = ({ cartItems = [] }) => { // default to empty array
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+
+          {cartItems.length > 0 && (
+            <div className="mt-4 flex justify-between text-sm font-semibold border-t pt-3 border-gray-700">
+              <span>Subtotal</span>
+              <span>${subtotal.toFixed(2)}</span>
             </div>
           )}
 
