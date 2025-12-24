@@ -1,6 +1,7 @@
 import { MiniCart } from "../utils/MiniCart";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { CircleUser } from "lucide-react";
 import axios from "axios";
 
 export const Navbar = () => {
@@ -42,7 +43,7 @@ export const Navbar = () => {
         {user ? (
         <span>Hi, {user.first_name || user.email}</span> // show first name or email
           ) : (
-            <Link to="/login">LOGIN</Link>
+            <Link to="/login"> <CircleUser className="w-5 h-5" /> </Link>
           )}
         </div>
 
