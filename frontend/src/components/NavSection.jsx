@@ -1,4 +1,6 @@
 import { MiniCart } from "../utils/MiniCart";
+import { UserManage } from "../utils/UserManage";
+
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CircleUser } from "lucide-react";
@@ -28,6 +30,16 @@ export const Navbar = () => {
   }, [token]);
 
 
+  // Logout handler
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setUser(null);
+    setCart([]);
+  };
+
+
+
   return (
     <nav className="border-t border-l border-r border-gray-700 w-full flex justify-between items-center px-6 py-4 rounded-t-xl bg-gradient-to-r from-[#1A1F2A] to-[#0D1117] relative">
       <div className="text-xl font-semibold tracking-widest">22MYSTYLE</div>
@@ -39,13 +51,10 @@ export const Navbar = () => {
         <li className="cursor-pointer hover:text-white">SALE</li>
       </ul>
 
-      <div className="hidden md:flex text-sm border rounded-lg hover:bg-white hover:text-black transition p-2 font-bold">
-        {user ? (
-        <span>Hi, {user.first_name || user.email}</span> // show first name or email
-          ) : (
-            <Link to="/login"> <CircleUser className="w-5 h-5" /> </Link>
-          )}
-        </div>
+      {/* User dropdown */}
+      <div className="hidden md:flex text-sm">
+        <UserManage user={user} onLogout={handleLogout} />
+      </div>
 
       {/* Mini Cart Component */}
       <MiniCart cartItems={cart?.items || []}
