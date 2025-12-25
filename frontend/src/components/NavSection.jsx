@@ -1,9 +1,6 @@
 import { MiniCart } from "../utils/MiniCart";
 import { UserManage } from "../utils/UserManage";
-
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CircleUser } from "lucide-react";
 import axios from "axios";
 
 export const Navbar = () => {
@@ -42,7 +39,7 @@ export const Navbar = () => {
 
   return (
     <nav className="border-t border-l border-r border-gray-700 w-full flex justify-between items-center px-6 py-4 rounded-t-xl bg-gradient-to-r from-[#1A1F2A] to-[#0D1117] relative">
-      <div className="text-xl font-semibold tracking-widest">22MYSTYLE</div>
+      <div className="text-xl font-semibold tracking-widest"> <a href="/">22MYSTYLE</a></div>
 
       <ul className="hidden md:flex gap-10 text-sm text-gray-300">
         <li className="cursor-pointer hover:text-white">MEN</li>

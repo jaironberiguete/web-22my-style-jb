@@ -29,7 +29,7 @@ export const UserManage = ({ user, onLogout }) => {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-4 z-50">
+        <div className="absolute right-0 mt-10 w-48 bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-4 z-50">
           {user ? (
             <div className="flex flex-col gap-2">
               <span className="font-semibold text-white">
