@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { useState } from 'react';
+import { Shop } from './pages/Shop';
 import './index.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/login" element={<Login onLogin={() => setAuthChanged(v => v + 1)} />} />
             <Route path="/register" element={<Register />} />        
+            <Route path="/shop" element={<Shop />} />
           </Routes>
         </BrowserRouter>
       </div>

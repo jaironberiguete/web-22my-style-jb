@@ -1,7 +1,7 @@
 // src/components/Register.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../api/axios"; 
+import axios from "axios";
 
 export const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -14,22 +14,22 @@ export const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await API.post("auth/register/", {
+      await axios.post("http://127.0.0.1:8000/api/auth/register/", {
         first_name: firstName,
         last_name: lastName,
         email,
         password,
       });
 
-      // Optionally, log in automatically after registration
-      localStorage.setItem("accessToken", response.data.access);
-      localStorage.setItem("refreshToken", response.data.refresh);
-
-      alert("Registration successful!");
-      navigate("/"); // redirect to home
+      alert("Registration successful! Please log in.");
+      navigate("/login");
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.detail || "Registration failed");
+      alert(
+        error.response?.data?.detail ||
+        JSON.stringify(error.response?.data) ||
+        "Registration failed"
+      );
     }
   };
 
