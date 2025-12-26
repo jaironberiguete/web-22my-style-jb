@@ -3,28 +3,27 @@ import { UserManage } from "../utils/UserManage";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const Navbar = () => {
-  const [cart, setCart] = useState([]);
-  const [user, setUser] = useState(null); // New state for user info
-  const token = localStorage.getItem("accessToken"); // JWT from login
+export const Navbar = ({ authChanged }) => {
+  const [user, setUser] = useState(null);
+  const [cart, setCart] = useState(null);
 
-  // Fetch cart on mount
   useEffect(() => {
-    if (token) {
-      axios.get("http://127.0.0.1:8000/api/cart/", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => setCart(res.data))
-        .catch((err) => console.error(err.response?.data || err.message));
-
-      // Fetch current user info
-      axios.get("http://127.0.0.1:8000/api/auth/user/", {  // Make sure this endpoint exists in Django
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => setUser(res.data))
-        .catch((err) => console.error(err.response?.data || err.message));
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setUser(null);
+      setCart(null);
+      return;
     }
-  }, [token]);
+
+    axios.get("/api/auth/user/", {
+      headers: { Authorization: `Bearer ${token}` },
+    }).then(res => setUser(res.data));
+
+    axios.get("/api/cart/", {
+      headers: { Authorization: `Bearer ${token}` },
+    }).then(res => setCart(res.data));
+
+  }, [authChanged]); // ✅ THIS is the key
 
 
   // Logout handler

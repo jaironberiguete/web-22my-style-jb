@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios"; 
 
-export const Login = () => {
+export const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -16,7 +16,8 @@ export const Login = () => {
       // Store tokens in localStorage
       localStorage.setItem("refreshToken", response.data.refresh);
       localStorage.setItem("accessToken", response.data.access);
-      alert("Login successful!");
+      // alert("Login successful!");
+      onLogin();    // 🔥 tell Navbar to refresh
       navigate("/");
       
     } catch (error) {
