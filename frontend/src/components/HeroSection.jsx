@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
+
+
 export const Hero = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative border border-gray-700 py-8 w-full bg-gradient-to-r from-[#111827] to-[#0b0d12] px-4 sm:px-10 flex flex-col md:flex-row items-center justify-between overflow-hidden">
       
@@ -8,7 +13,9 @@ export const Hero = () => {
           Discover the latest trends in fashion
         </p>
 
-        <button className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 sm:py-3 border rounded-lg hover:bg-white hover:text-black transition text-sm sm:text-base">
+        <button className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 sm:py-3 border rounded-lg hover:bg-white hover:text-black transition text-sm sm:text-base"
+          onClick={() => navigate("/shop")}
+        >
           SHOP NOW
         </button>
       </div>

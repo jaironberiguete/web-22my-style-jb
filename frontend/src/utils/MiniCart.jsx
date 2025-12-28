@@ -50,6 +50,7 @@ export const MiniCart = ({ cartItems = [], setCartItems, subtotal = 0 }) => {
 
           {cartItems.length === 0 ? (
             <p className="text-gray-400 text-sm">Your cart is empty</p>
+            
           ) : (
             <div className="space-y-3">
               {cartItems.map((item) => (

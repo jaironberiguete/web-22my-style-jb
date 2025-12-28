@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios"; 
 
-export const Login = () => {
+export const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -16,8 +16,10 @@ export const Login = () => {
       // Store tokens in localStorage
       localStorage.setItem("refreshToken", response.data.refresh);
       localStorage.setItem("accessToken", response.data.access);
-      alert("Login successful!");
+      // alert("Login successful!");
+      onLogin();    // 🔥 tell Navbar to refresh
       navigate("/");
+      
     } catch (error) {
       console.error(error);
       alert("Invalid credentials");
@@ -25,10 +27,10 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-[#0b0d12] ">
+    <div className="relative border border-gray-700 py-48 w-full bg-gradient-to-r from-[#111827] to-[#0b0d12] px-4 sm:px-10  flex flex-col md:flex-center  items-center justify-center overflow-hidden">
       <form
         onSubmit={handleSubmit}
-        className="bg-gradient-to-t from-[#111827] to-[#0b0d12] p-8 rounded-lg shadow-lg w-full max-w-sm border-gray-700"
+        className="bg-gradient-to-t from-[#111827] to-[#0b0d12] p-8 rounded-lg shadow-lg w-full max-w-sm border"
       >
         <h2 className="text-2xl font-semibold text-white mb-6 text-center">Login</h2>
 
@@ -56,6 +58,9 @@ export const Login = () => {
         >
           LOGIN
         </button>
+           <p className="mt-4 text-gray-400 text-sm text-center">
+          Don't have an account? <a href="/Register" className="text-blue-400">Register</a>
+        </p>
       </form>
     </div>
   );
