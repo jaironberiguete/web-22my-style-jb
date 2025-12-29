@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const FeaturedProducts = ({ onCartUpdate }) => {
   const [products, setProducts] = useState([]);
-  const token = localStorage.getItem("accessToken"); // JWT from login
+  const sliderRef = useRef(null);
 
-    // Demo fallback products
+  // Demo fallback products
   const demoProducts = [
     { id: 1, name: "CASUAL SHIRT", price: 75, image: "images/products/prod-shirt.png" },
     { id: 2, name: "DENIM JEANS", price: 145, image: "images/products/prod-jeans.png" },
@@ -20,16 +21,29 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
         setProducts(res.data);
       } catch (err) {
         console.warn("Backend not available, using demo products.");
-        setProducts(demoProducts); // fallback if API fails
+        setProducts(demoProducts);
       }
     };
 
     fetchProducts();
   }, []);
   
-  // Add items to the users cart
+
+
+  // Scroll handler
+  const scroll = (direction) => {
+    if (!sliderRef.current) return;
+
+    sliderRef.current.scrollBy({
+      left: direction === "left" ? -300 : 300,
+      behavior: "smooth",
+    });
+  };
+
+  // Add items to cart
   const handleAddToCart = async (productId) => {
-  const token = localStorage.getItem("accessToken"); // JWT from login
+    const token = localStorage.getItem("accessToken");
+    if (!token) return alert("Please log in");
 
     try {
       const res = await axios.post(
@@ -37,41 +51,78 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
         { product: productId, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      if (onCartUpdate) onCartUpdate(res.data); // update Navbar cart
+
+      if (onCartUpdate) onCartUpdate(res.data);
     } catch (err) {
       console.error("Failed to add product to cart:", err.response?.data || err.message);
     }
   };
 
-  return (
-    <section className="border-r border-l border-gray-700">
-      <h2 className="text-xl font-semibold mb-6 ml-4">FEATURED PRODUCTS</h2>
+  // Limit to 10 products
+  const visibleProducts = products.slice(0, 8);
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 px-10">
-        {products.map((p) => (
+  return (
+    <section className="border-r border-l border-gray-700 relative">
+      <div className="flex items-center justify-between px-6 mb-6">
+        <h2 className="text-xl font-semibold">FEATURED PRODUCTS</h2>
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => scroll("left")}
+            className="p-2 border rounded-lg hover:bg-white hover:text-black transition"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="p-2 border rounded-lg hover:bg-white hover:text-black transition"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={sliderRef}
+        className="
+          flex gap-6 px-6 pb-6
+          overflow-x-auto scroll-smooth
+          scrollbar-hide
+        "
+      >
+        {visibleProducts.map((p) => (
           <div
-            key={p.id} // use unique id
-            className="bg-gradient-to-b from-[#111827] to-[#0b0d12] rounded-xl p-6 flex flex-col items-center justify-between hover:bg-[#1a1f2e] transition h-80"
+            key={p.id}
+            className="
+              border border-gray-400 border-solid
+              min-w-[240px] h-80
+              bg-gradient-to-b from-[#111827] to-[#0b0d12]
+              rounded-xl p-6
+              flex flex-col items-center justify-between
+              hover:bg-[#1a1f2e] transition
+            "
           >
             <div className="flex items-center justify-center h-40 w-full">
               <img
-                src={p.image || "images/products/default.png"} 
+                src={p.image || "/images/placeholder-product.png"}
                 alt={p.name}
                 className="h-36 object-contain"
+                onError={(e) => {
+                  e.currentTarget.src = "/images/defoult.png";
+                }}
               />
             </div>
 
-            <div className="mt-auto text-center px-2 sm:px-4">
-              <h3 className="font-semibold text-base sm:text-lg">{p.name}</h3>
-              <p className="text-gray-400 text-sm sm:text-base">${p.price}</p>
-              <div>
-                <button
-                  onClick={() => handleAddToCart(p.id)}
-                  className="border rounded-lg hover:bg-white hover:text-black transition px-3 py-1.5 sm:px-4 sm:py-2 mt-2 text-sm sm:text-base"
-                >
-                  Add to Cart
-                </button>
-              </div>
+            <div className="mt-auto text-center">
+              <h3 className="font-semibold">{p.name}</h3>
+              <p className="text-gray-400">${p.price}</p>
+
+              <button
+                onClick={() => handleAddToCart(p.id)}
+                className="border rounded-lg hover:bg-white hover:text-black transition px-4 py-2 mt-2"
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         ))}

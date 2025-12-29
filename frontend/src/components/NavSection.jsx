@@ -15,11 +15,11 @@ export const Navbar = ({ authChanged }) => {
       return;
     }
 
-    axios.get("/api/auth/user/", {
+    axios.get("http://127.0.0.1:8000/api/auth/user/", {
       headers: { Authorization: `Bearer ${token}` },
     }).then(res => setUser(res.data));
 
-    axios.get("/api/cart/", {
+    axios.get("http://127.0.0.1:8000/api/cart/", {
       headers: { Authorization: `Bearer ${token}` },
     }).then(res => setCart(res.data));
 

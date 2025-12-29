@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { CircleUser } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Login } from "../pages/Login";
+
 
 export const UserManage = ({ user, onLogout }) => {
   const [open, setOpen] = useState(false);
