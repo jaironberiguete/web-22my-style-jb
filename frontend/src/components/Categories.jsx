@@ -6,6 +6,7 @@ import axios from "axios";
   { id: 1, name: "MEN", img: "images/models/cat-men.png" },
   { id: 2, name: "WOMEN", img: "images/models/cat-women.png" },
   { id: 3, name: "KIDS", img: "images/models/cat-kids.png" },
+  { id: 4, name: "SHOES", img: "images/models/cat-shoes.png" },
 ];
 
 export const Categories = () => {
@@ -28,7 +29,7 @@ export const Categories = () => {
     <section className="relative border-r border-l border-gray-700 py-8 w-full pb-40 pt-20">
       <h2 className="text-xl font-semibold mb-6 ml-4">SHOP BY CATEGORY</h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 px-10">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 px-10">
         {categories.map((c) => (
           <div
             key={c.id}
