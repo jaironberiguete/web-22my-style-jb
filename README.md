@@ -44,7 +44,7 @@ You can clone this project locally using:
 
 ```bash
 git clone https://github.com/jaironberiguete/web-22my-style-jb.git
-cd 22mystyle
+cd /web-22my-style-jb
 ```
 
 ## Quick Start
