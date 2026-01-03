@@ -45,15 +45,17 @@ You can clone this project locally using:
 ```bash
 git clone https://github.com/jaironberiguete/web-22my-style-jb.git
 cd 22mystyle
+```
 
 ## Quick Start
-
 ### Frontend (React + Tailwind)
-cd frontend
+```bash cd frontend
 npm install
 npm run dev
+```
 
 ### Bakend (Python + Django)
+```bash
 cd backend
 pip install -r requirements.txt
 python manage.py migrate
