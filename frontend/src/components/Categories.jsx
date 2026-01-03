@@ -6,7 +6,7 @@ import axios from "axios";
   { id: 1, name: "MEN", img: "images/models/cat-men.png" },
   { id: 2, name: "WOMEN", img: "images/models/cat-women.png" },
   { id: 3, name: "KIDS", img: "images/models/cat-kids.png" },
-  { id: 4, name: "SHOES", img: "images/models/cat-shoes.png" },
+  { id: 4, name: "SHOES", img: "images/default.png" },
 ];
 
 export const Categories = () => {
@@ -41,7 +41,7 @@ export const Categories = () => {
 
             {/* Image fills the card */}
             <img
-              src={c.img}
+              src={c.img} 
               alt={c.name}
               className="absolute inset-0  h-60 object-cover opacity-90 group-hover:opacity-100 transition"
             />

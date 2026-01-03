@@ -8,10 +8,10 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
 
   // Demo fallback products
   const demoProducts = [
-    { id: 1, name: "CASUAL SHIRT", price: 75, image: "images/products/prod-shirt.png" },
-    { id: 2, name: "DENIM JEANS", price: 145, image: "images/products/prod-jeans.png" },
-    { id: 3, name: "LEATHER JACKET", price: 249, image: "images/products/prod-jacket.png" },
-    { id: 4, name: "SNEAKERS", price: 133, image: "images/products/prod-sneakers.png" },
+    { id: 1, name: "CASUAL SHIRT", price: 75, image: "images/default.png" },
+    { id: 2, name: "DENIM JEANS", price: 145, image: "images/default.png" },
+    { id: 3, name: "LEATHER JACKET", price: 249, image: "images/default.png" },
+    { id: 4, name: "SNEAKERS", price: 133, image: "images/default.png" },
   ];
 
   useEffect(() => {
@@ -104,11 +104,11 @@ export const FeaturedProducts = ({ onCartUpdate }) => {
           >
             <div className="flex items-center justify-center h-40 w-full">
               <img
-                src={p.image || "/images/placeholder-product.png"}
+                src={p.image || "/images/default.png"}
                 alt={p.name}
                 className="h-36 object-contain"
                 onError={(e) => {
-                  e.currentTarget.src = "/images/defoult.png";
+                  e.currentTarget.src = "/images/default.png";
                 }}
               />
             </div>
