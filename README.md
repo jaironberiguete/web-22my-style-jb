@@ -4,7 +4,7 @@ A **modern, cloud-native full-stack e-commerce platform** designed, built, and d
 
 This project goes beyond application development by provisioning and managing the entire **AWS infrastructure using Terraform**, following a **production-style three-tier architecture**.
 
-![Main Page](https://github.com/jaironberiguete/portfolio-react-jb/blob/master/public/projects/22mystyle.png))
+![Main Page](https://github.com/jaironberiguete/portfolio-react-jb/blob/master/public/projects/22mystyle.png)
 
 ---
 
