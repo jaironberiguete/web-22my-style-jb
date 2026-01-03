@@ -43,7 +43,7 @@ This project goes beyond application development by provisioning and managing th
 You can clone this project locally using:
 
 ```bash
-git clone https://github.com/your-username/22mystyle.git
+git clone https://github.com/jaironberiguete/web-22my-style-jb.git
 cd 22mystyle
 
 ## Quick Start
