@@ -8,14 +8,6 @@ This project goes beyond application development by provisioning and managing th
 
 ---
 
-## 📸 Architecture Overview
-
-> *High-level AWS infrastructure and application flow*
-
-![Architecture Diagram](infra/diagram/architecture-1-dark.png)
-
----
-
 ## 🚀 Features
 
 ### Frontend
@@ -46,6 +38,39 @@ This project goes beyond application development by provisioning and managing th
 * 🔒 Environment-based configuration & security groups
 
 ---
+## Run the project
+
+You can clone this project locally using:
+
+```bash
+git clone https://github.com/your-username/22mystyle.git
+cd 22mystyle
+
+## Quick Start
+
+### Frontend (React + Tailwind)
+cd frontend
+npm install
+npm run dev
+
+### Bakend (Python + Django)
+cd backend
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+pgsql
+```
+---
+
+## 📸 Architecture Overview
+
+> *High-level AWS infrastructure and application flow*
+
+![Architecture Diagram](infra/diagram/architecture-1-dark.png)
+
+---
+
+
 
 ## 🏗️ Architecture (Three-Tier Design)
 
