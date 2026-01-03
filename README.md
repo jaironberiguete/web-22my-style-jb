@@ -12,7 +12,7 @@ This project goes beyond application development by provisioning and managing th
 
 > *High-level AWS infrastructure and application flow*
 
-![Architecture Diagram](infra/diagram/architecture-1.png)
+![Architecture Diagram](infra/diagram/architecture-1-dark.png)
 
 ---
 
