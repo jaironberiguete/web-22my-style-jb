@@ -88,19 +88,17 @@ PostgreSQL (RDS)
 .
 ├── frontend/            # React + Tailwind app
 ├── backend/             # Django REST API
-├── terraform/           # AWS Infrastructure as Code
-│   ├── vpc.tf
-│   ├── subnets.tf
-│   ├── alb.tf
-│   ├── autoscaling.tf
-│   ├── bastion.tf
-│   ├── rds.tf
-│   ├── security_groups.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   └── terraform.tfvars
-├── docs/
-│   └── architecture-diagram.png
+├── infra/terraform/           # AWS Infrastructure as Code
+│       ├── vpc.tf
+│       ├── subnets.tf
+│       ├── alb.tf
+│       ├── autoscaling.tf
+│       ├── bastion.tf
+│       ├── rds.tf
+│       ├── security_groups.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       └── terraform.tfvars
 └── README.md
 ```
 
