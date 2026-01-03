@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "project_name" {
   description = "Project name"
   type        = string
-  default     = "ecommerce"
+  default     = "22mystyle"
 }
 
 variable "environment" {
@@ -29,4 +29,19 @@ variable "db_username" {
 variable "db_password" {
   type      = string
   sensitive = true
+}
+
+variable "my_ip" {
+  description = "Your public IP in CIDR format"
+  type        = string
+}
+
+variable "key_name" {
+  description = "EC2 key pair name"
+  type        = string
+}
+
+variable "ami_id" {
+  description = "Ubuntu AMI ID"
+  type        = string
 }
